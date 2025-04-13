@@ -28,14 +28,18 @@ function PaddleSelectState:update(dt)
 	if love.keyboard.wasPressed("return") or love.keyboard.wasPressed("enter") then
 		gSounds["confirm"]:play()
 
+		local bricks = LevelMaker:createMap(1)
+		local powerups = LevelMaker:addPowerUps(bricks)
+
 		gStateMachine:change("serve", {
 			paddle = Paddle(self.currentPaddle),
-			bricks = LevelMaker:createMap(1),
+			bricks = bricks,
 			health = 3,
 			score = 0,
 			level = 1,
 			highScores = self.highScores,
 			recoverPoints = 5000,
+			powerups = powerups,
 		})
 	end
 

@@ -8,6 +8,7 @@ function ServeState:enter(params)
 	self.level = params.level
 	self.highScores = params.highScores
 	self.recoverPoints = params.recoverPoints
+	self.powerups = params.powerups
 
 	self.ball = Ball()
 	self.ball.skin = math.random(7)
@@ -20,15 +21,24 @@ function ServeState:update(dt)
 	self.ball.y = self.paddle.y - 8
 
 	if love.keyboard.wasPressed("enter") or love.keyboard.wasPressed("return") then
+		-- Remove powerups that I touched but failed to claim in the last round
+
+		for i, powerUp in pairs(self.powerups) do
+			if powerUp.claimed then
+				table.remove(self.powerups, powerUp)
+			end
+		end
+
 		gStateMachine:change("play", {
 			paddle = self.paddle,
 			bricks = self.bricks,
 			health = self.health,
 			score = self.score,
-			ball = self.ball,
+			balls = { self.ball },
 			level = self.level,
 			highScores = self.highScores,
 			recoverPoints = self.recoverPoints,
+			powerups = self.powerups,
 		})
 	end
 

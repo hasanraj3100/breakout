@@ -10,6 +10,7 @@ require("src/LevelMaker")
 require("src/Paddle")
 require("src/Ball")
 require("src/Brick")
+require("src/PowerUp")
 
 -- States
 require("src/StateMachine")

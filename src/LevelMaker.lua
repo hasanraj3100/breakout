@@ -63,3 +63,28 @@ function LevelMaker:createMap(level)
 		return bricks
 	end
 end
+
+function LevelMaker:addPowerUps(bricks)
+	local num_powerups = math.random(2) -- Number of total powerups
+	local associated_bricks = {}
+
+	local counter = 0
+
+	--- Choose random bricks to attach powerups with
+	while counter < num_powerups do
+		idx = math.random(#bricks)
+
+		if not associated_bricks[idx] == true then
+			associated_bricks[idx] = true
+			counter = counter + 1
+		end
+	end
+
+	local powerups = {} -- Powerup wth positions
+
+	for key, value in pairs(associated_bricks) do
+		table.insert(powerups, PowerUp(7, bricks[key].x, bricks[key].y))
+	end
+
+	return powerups
+end

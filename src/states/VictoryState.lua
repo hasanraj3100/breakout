@@ -17,14 +17,18 @@ function VictoryState:update(dt)
 	self.ball.y = self.paddle.y - 8
 
 	if love.keyboard.wasPressed("enter") or love.keyboard.wasPressed("return") then
+		local bricks = LevelMaker:createMap(self.level + 1)
+		local powerups = LevelMaker:addPowerUps(bricks)
+
 		gStateMachine:change("serve", {
 			level = self.level + 1,
-			bricks = LevelMaker:createMap(self.level + 1),
+			bricks = bricks,
 			paddle = self.paddle,
 			health = self.health,
 			score = self.score,
 			highScores = self.highScores,
 			recoverPoints = self.recoverPoints,
+			powerups = powerups,
 		})
 	end
 end
