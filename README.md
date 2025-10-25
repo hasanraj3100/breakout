@@ -37,7 +37,7 @@ Make sure you have [LÖVE 2D](https://love2d.org/) installed.
 Then run:
 ```bash
 love .
-
+```
 --- 
 ## Acknowledgement
 Thanks to Harvard’s CS50 Game Development course for guiding the foundation of this project.
