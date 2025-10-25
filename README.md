@@ -4,6 +4,8 @@ A modern remake of the classic **Breakout** game, built with **Lua** and **LÖVE
 You control the paddle, bounce the ball, and smash through colorful bricks to rack up points!  
 As you score higher, the paddle grows — but miss the ball, and it shrinks again. 😬  
 
+https://github.com/user-attachments/assets/d0499bf0-f5f6-4365-af89-04d7a14dc041
+
 
 ---
 
