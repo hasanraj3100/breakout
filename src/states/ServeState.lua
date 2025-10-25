@@ -9,6 +9,7 @@ function ServeState:enter(params)
 	self.highScores = params.highScores
 	self.recoverPoints = params.recoverPoints
 	self.powerups = params.powerups
+	self.sizeIncScore = params.sizeIncScore
 
 	self.ball = Ball()
 	self.ball.skin = math.random(7)
@@ -22,10 +23,9 @@ function ServeState:update(dt)
 
 	if love.keyboard.wasPressed("enter") or love.keyboard.wasPressed("return") then
 		-- Remove powerups that I touched but failed to claim in the last round
-
 		for i, powerUp in pairs(self.powerups) do
-			if powerUp.claimed then
-				table.remove(self.powerups, powerUp)
+			if powerUp.touched then
+				table.remove(self.powerups, i)
 			end
 		end
 
@@ -39,6 +39,7 @@ function ServeState:update(dt)
 			highScores = self.highScores,
 			recoverPoints = self.recoverPoints,
 			powerups = self.powerups,
+			sizeIncScore = self.sizeIncScore,
 		})
 	end
 

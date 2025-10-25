@@ -8,6 +8,7 @@ function VictoryState:enter(params)
 	self.ball = params.ball
 	self.highScores = params.highScores
 	self.recoverPoints = params.recoverPoints
+	self.sizeIncScore = params.sizeIncScore
 end
 
 function VictoryState:update(dt)
@@ -29,6 +30,7 @@ function VictoryState:update(dt)
 			highScores = self.highScores,
 			recoverPoints = self.recoverPoints,
 			powerups = powerups,
+			sizeIncScore = self.sizeIncScore,
 		})
 	end
 end

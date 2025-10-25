@@ -10,6 +10,7 @@ function PlayState:enter(params)
 	self.highScores = params.highScores
 	self.recoverPoints = params.recoverPoints
 	self.powerups = params.powerups
+	self.sizeIncScore = params.sizeIncScore
 
 	self.balls[1].dx = math.random(-200, 200) -- Speed for the first ball we got from the serve state
 	self.balls[1].dy = math.random(50, 200)
@@ -77,16 +78,21 @@ function PlayState:update(dt)
 						ball = self.balls[1], -- Sending only one ball to the victory state
 						recoverPoints = self.recoverPoints,
 						highScores = self.highScores,
+						sizeIncScore = self.sizeIncScore,
 					})
 				end
 
 				self.score = self.score + (brick.tier * 200 + brick.color * 25)
 
+				if self.score > self.sizeIncScore then
+					self.paddle:increaseSize()
+					self.sizeIncScore = self.sizeIncScore + 2000
+				end
+
 				if self.score > self.recoverPoints then
 					self.health = math.min(3, self.health + 1)
 					self.recoverPoints = math.min(100000, self.recoverPoints * 2)
 					gSounds["recover"]:play()
-					print("new recover points : " .. tostring(self.recoverPoints))
 				end
 
 				if ball.x + 2 < brick.x and ball.dx > 0 then
@@ -128,6 +134,8 @@ function PlayState:update(dt)
 			if #self.balls == 0 then
 				self.health = self.health - 1
 
+				self.paddle:decreaseSize()
+
 				if self.health == 0 then
 					gStateMachine:change("game-over", {
 						score = self.score,
@@ -143,6 +151,7 @@ function PlayState:update(dt)
 						highScores = self.highScores,
 						recoverPoints = self.recoverPoints,
 						powerups = self.powerups,
+						sizeIncScore = self.sizeIncScore,
 					})
 				end
 			end
